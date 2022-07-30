@@ -57,7 +57,7 @@ public class Parameters {
     public Length LayerHeight{ get; init; } = Length.Mm.Value(0.2);
 
     /// <summary>
-    /// The distance between each point on the circumference of nose cone.
+    /// The length of each straight line segment that makes up the circumference of the nose cone.
     /// </summary>
     public Length Resolution { get; init; }= Length.Mm.Value(0.6);
 
@@ -77,12 +77,12 @@ public class Parameters {
     public Length FilamentDiameter { get; init; } = Length.Mm.Value(1.75);
 
     /// <summary>
-    /// The max width (x coordinate) of the build plate
+    /// The width (max x coordinate) of the build plate
     /// </summary>
     public Length BuildPlateWidth { get; init; } = Length.Mm.Value(220);
 
     /// <summary>
-    /// The max depth (y coordinate) of the build plate
+    /// The depth (max y coordinate) of the build plate
     /// </summary>
     public Length BuildPlateDepth { get; init; } = Length.Mm.Value(220);
 }
