@@ -215,6 +215,17 @@ public class Program {
             // Determine the point on the circle
             (x, y) = Circle.Point(cx, cy, spiralRadius, spiralAngle);
 
+            // When we get close to the top we need to extrude less because the thickness of the line
+            // is larger than the radius
+            if (spiralRadius < wallThickness / 2) {
+                var diff = (wallThickness / 2) - spiralRadius;
+                fillArea = layerHeight * (wallThickness - diff);
+            } else {
+                fillArea = layerHeight * wallThickness;
+            }
+
+            extrusionRatio = fillArea / filamentArea;
+
             // Draw the line segment
             extruder.LineTo(x, y, coneZ + zBase, extrusionRatio);
 
