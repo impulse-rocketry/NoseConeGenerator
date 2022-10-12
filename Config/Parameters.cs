@@ -59,7 +59,7 @@ public class Parameters {
     /// <summary>
     /// The length of each straight line segment that makes up the circumference of the nose cone.
     /// </summary>
-    public Length Resolution { get; init; }= Length.Mm.Value(0.6);
+    public Length Resolution { get; init; }= Length.Mm.Value(0.5);
 
     /// <summary>
     /// Temperature of the bed
