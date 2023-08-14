@@ -1,0 +1,9 @@
+{
+    "shape": "Haack",
+    "diameter": {
+        "value": 50,
+        "unit": "mm"
+    },
+    "ratio": 4.5,
+    "shapeParameter": 0.5
+}
