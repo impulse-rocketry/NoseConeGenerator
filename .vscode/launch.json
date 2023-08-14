@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/bin/Debug/net6.0/ImpulseRocketry.NoseConeGenerator.dll",
-            "args": ["-p=40mm-example.json"],
+            "args": ["-p=40mm-example.json", "-o=40mm-example.gcode" ],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false
