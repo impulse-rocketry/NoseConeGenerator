@@ -164,7 +164,7 @@ public class Program {
         // Base tube and nosecone is printed in a continious spiral to avoid steps between layers and provide
         // the smoothest possible printed surface.
         for (var layerNumber = 0; layerNumber < cylinderLayerCount; layerNumber++) {
-            writer.Comment($"LAYER: {layerNumber}")
+            writer.Comment($"LAYER: {layerNumber + 1}")
                 .Comment("TYPE:WALL-OUTER");
 
             // Increase the fan speed over the first few layers
@@ -197,8 +197,12 @@ public class Program {
         var spiralLayerCount = 0;
         double spiralAngle = 0;
         double coneZ = 0;
-        var zBase = cylinderLayerCount * layerHeight;
+
+        var zBase = (cylinderLayerCount + 1) * layerHeight;
         
+        writer.Comment($"LAYER: {spiralLayerCount + cylinderLayerCount + 1}")
+              .Comment("TYPE:WALL-OUTER");
+
         while (coneHeight - coneZ > 0) {
 
             var spiralRadius = shape switch
@@ -239,8 +243,8 @@ public class Program {
                 spiralAngle -= 360;
                 spiralLayerCount ++;
                 
-                writer.Comment($"LAYER: {spiralLayerCount + cylinderLayerCount}")
-                    .Comment("TYPE:WALL-OUTER");
+                writer.Comment($"LAYER: {spiralLayerCount + cylinderLayerCount + 1}")
+                      .Comment("TYPE:WALL-OUTER");
             }
 
             coneZ = layerHeight * spiralLayerCount + (layerHeight / 360.0 * spiralAngle);
