@@ -44,12 +44,12 @@ public class Parameters {
     /// <summary>
     /// The thickness of the nose cone wall
     /// </summary>    
-    public Length WallThickness { get; init; }= Length.Mm.Value(1);
+    public Length WallThickness { get; init; } = Length.Mm.Value(1);
 
     /// <summary>
     /// The height of the base cylinder
     /// </summary>    
-    public Length BaseHeight { get; init; }= Length.Mm.Value(5);
+    public Length BaseHeight { get; init; } = Length.Mm.Value(0);
 
     /// <summary>
     /// The layer height
