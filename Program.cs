@@ -13,6 +13,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System.CommandLine;
+using System.Text;
 using System.Text.Json;
 using ImpulseRocketry.GCode;
 using ImpulseRocketry.Maths;
@@ -63,7 +64,8 @@ public class Program {
 
         var outputStream = Console.Out;
         if (outputFile is not null) {
-            outputStream = new StreamWriter(File.OpenWrite(outputFile));
+            var file = File.Open(outputFile, FileMode.Create, FileAccess.Write, FileShare.None);
+            outputStream = new StreamWriter(file, Encoding.UTF8);
         }
 
         var writer = new GCodeWriter(outputStream);
