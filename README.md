@@ -7,7 +7,7 @@ Utility to generate 3D printer G-code files for common nose cone shapes
 This console mode utility accepts a JSON formatted parameters file and produces the resulting G-code as output which can be optionally written to a file or produced as output to the console.
 
 ``
-NoseConeGenerator -p=paramtersFile -o=outputFile
+ImpulseRocketry.NoseConeGenerator -p=paramtersFile -o=outputFile
 ``
 
 | Argument | Description |
@@ -34,6 +34,7 @@ The JSON formatted parameters file accepts the following parameters:
 | FilamentDiameter | The diameter of the filament | 1.75 mm |
 | BuildPlateWidth | The width (max x coordinate) of the build plate | 220 mm |
 | BuildPlateDepth | The depth (max y coordinate) of the build plate | 220 mm |
+| Brim | The width of the brim to attach to the base.  A skirt will be generate when this is set to zero | 0mm |
 
 ## Example
 

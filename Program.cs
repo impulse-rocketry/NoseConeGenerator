@@ -86,6 +86,7 @@ public class Program {
         var shape = parameters.Shape;
 
         writer.Comment("FLAVOR:Marlin");
+        writer.Comment($"Generated: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
         writer.Comment($"Layer height: {layerHeight}");
         writer.Comment($"Generated with Impulse Rocketry Nose Cone Generator");
         writer.Comment($"Diameter: {d}");
@@ -148,17 +149,36 @@ public class Program {
         // Move printer head to the starting point
         writer.FanOff();
 
-        // Skirt Circles
-        writer.Comment($"TYPE:SKIRT");
-        writer.LinearMoveAndExtrude(f:1500, e:0);
-        
-        var (x, y) = Circle.Point(cx, cy, r+8, 0);
-        writer.LinearMove(f:7500, x:x, y:y, z:layerHeight + 0.05);
-
         var extruder = new Extruder(writer, resolution);
+        double x;
+        double y;
+        if (parameters.Brim.To.Mm >= 0) {
+            // Brim Circles
+            writer.Comment("TYPE:BRIM");
+            writer.LinearMoveAndExtrude(f:1500, e:0);
 
-        extruder.CircleLayer(extrusionRatio, cx, cy, r + 8, layerHeight);
-        extruder.CircleLayer(extrusionRatio, cx, cy, r + 6, layerHeight);
+            var t = wallThickness * .7;
+            var brimRadius = (parameters.Brim.To.Mm / 2) + (wallThickness / 2);
+            var numRings = (int)(brimRadius / t);
+
+            // Move to the first circle
+            (x, y) = Circle.Point(cx, cy, r + (numRings * t), 0);
+            writer.LinearMove(f:7500, x:x, y:y, z:layerHeight + 0.05);
+
+            for (var ringNumber = numRings; ringNumber > 0; ringNumber--) {
+                extruder.CircleLayer(extrusionRatio, cx, cy, r + (ringNumber * t), layerHeight);
+            }
+        } else {
+            // Skirt Circles
+            writer.Comment($"TYPE:SKIRT");
+            writer.LinearMoveAndExtrude(f:1500, e:0);
+            
+            (x, y) = Circle.Point(cx, cy, r+8, 0);
+            writer.LinearMove(f:7500, x:x, y:y, z:layerHeight + 0.05);
+
+            extruder.CircleLayer(extrusionRatio, cx, cy, r + 8, layerHeight);
+            extruder.CircleLayer(extrusionRatio, cx, cy, r + 6, layerHeight);
+        }
 
         (x, y) = Circle.Point(cx, cy, r, 0);
         extruder.MoveTo(x, y, layerHeight);
@@ -223,9 +243,11 @@ public class Program {
 
             // When we get close to the top we need to extrude less because the thickness of the line
             // is larger than the radius
-            if (spiralRadius < wallThickness / 2) {
-                var diff = (wallThickness / 2) - spiralRadius;
-                fillArea = layerHeight * (wallThickness - diff);
+            if (coneZ + 8 > coneHeight) {
+                // Extrude between 0% and 50% less as we get closer to the top of the cone
+                var hx = coneHeight - coneZ;
+                var ratio = (4 / hx) + .5;
+                fillArea = layerHeight * wallThickness / ratio;
             } else {
                 fillArea = layerHeight * wallThickness;
             }
@@ -247,6 +269,15 @@ public class Program {
                 
                 writer.Comment($"LAYER: {spiralLayerCount + cylinderLayerCount + 1}")
                       .Comment("TYPE:WALL-OUTER");
+            }
+
+            // Increase the fan speed over the first few layers
+            if (cylinderLayerCount + spiralLayerCount == 0) {
+                writer.SetFanSpeed(s:85);
+            } else if (cylinderLayerCount + spiralLayerCount == 1) {
+                writer.SetFanSpeed(s:170);
+            } else if (cylinderLayerCount + spiralLayerCount == 2) {
+                writer.SetFanSpeed(s:255);
             }
 
             coneZ = layerHeight * spiralLayerCount + (layerHeight / 360.0 * spiralAngle);

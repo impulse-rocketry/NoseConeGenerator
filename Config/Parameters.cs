@@ -85,4 +85,9 @@ public class Parameters {
     /// The depth (max y coordinate) of the build plate
     /// </summary>
     public Length BuildPlateDepth { get; init; } = Length.Mm.Value(220);
+
+    /// <summary>
+    /// The width of the brim
+    /// </summary>
+    public Length Brim { get; init; } = Length.Mm.Value(0);
 }

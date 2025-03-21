@@ -5,5 +5,9 @@
         "unit": "mm"
     },
     "ratio": 4.5,
-    "shapeParameter": 0.5
+    "shapeParameter": 0.5,
+    "baseHeight": {
+        "value": 5,
+        "unit": "mm"
+    }
 }

@@ -9,8 +9,8 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net6.0/ImpulseRocketry.NoseConeGenerator.dll",
-            "args": ["-p=40mm-example.json", "-o=40mm-example.gcode" ],
+            "program": "${workspaceFolder}/bin/Debug/net8.0/ImpulseRocketry.NoseConeGenerator.dll",
+            "args": ["-p=40mm-pla-example.json", "-o=40mm-pla-example.gcode" ],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false
