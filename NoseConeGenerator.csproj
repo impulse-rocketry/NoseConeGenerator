@@ -21,7 +21,7 @@
     <Summary>Utility to generate 3D printer GCode files for common nose cone shapes</Summary>
     <Description>Utility to generate 3D printer GCode files for common nose cone shapes</Description>
     <PackageDescription>Utility to generate 3D printer GCode files for common nose cone shapes</PackageDescription>
-    <Copyright>Copyright © 2022 Ben Voß</Copyright>
+    <Copyright>Copyright © 2022-2025 Ben Voß</Copyright>
     <Company>ImpulseRocketry</Company>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RootNamespace>ImpulseRocketry.NoseConeGenerator</RootNamespace>
