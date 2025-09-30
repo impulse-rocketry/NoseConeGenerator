@@ -84,6 +84,7 @@ public class Program {
         var extruderTemperature = parameters.ExtruderTemperature.To.C;
         var baseHeight = parameters.BaseHeight.To.Mm;
         var shape = parameters.Shape;
+        var fanSpeed = parameters.FanSpeed;
 
         writer.Comment("FLAVOR:Marlin");
         writer.Comment($"Generated: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
@@ -99,6 +100,7 @@ public class Program {
         writer.Comment($"Filament Diameter: {filamentDiameter}");
         writer.Comment($"Bed Temperature: {bedTemperature}");
         writer.Comment($"Extruder Temperature: {extruderTemperature}");
+        writer.Comment($"Fan Speed: {fanSpeed}");
 
         writer.MillimeterUnits();
         writer.SetTemperatureUnits(c:true);
@@ -189,13 +191,15 @@ public class Program {
             writer.Comment($"LAYER: {layerNumber + 1}")
                 .Comment("TYPE:WALL-OUTER");
 
-            // Increase the fan speed over the first few layers
-            if (layerNumber == 0) {
-                writer.SetFanSpeed(s:85);
-            } else if (layerNumber == 1) {
-                writer.SetFanSpeed(s:170);
-            } else if (layerNumber == 2) {
-                writer.SetFanSpeed(s:255);
+            if (fanSpeed > 0) {
+                // Increase the fan speed over the first few layers
+                if (layerNumber == 0) {
+                    writer.SetFanSpeed(s: (int)(85 * fanSpeed * 0.01));
+                } else if (layerNumber == 1) {
+                    writer.SetFanSpeed(s: (int)(170 * fanSpeed * 0.01));
+                } else if (layerNumber == 2) {
+                    writer.SetFanSpeed(s: (int)(255 * fanSpeed * 0.01));
+                }
             }
 
             // Each layer has an integer number of steps so we do not accumulate rounding errors
@@ -271,13 +275,15 @@ public class Program {
                       .Comment("TYPE:WALL-OUTER");
             }
 
-            // Increase the fan speed over the first few layers
-            if (cylinderLayerCount + spiralLayerCount == 0) {
-                writer.SetFanSpeed(s:85);
-            } else if (cylinderLayerCount + spiralLayerCount == 1) {
-                writer.SetFanSpeed(s:170);
-            } else if (cylinderLayerCount + spiralLayerCount == 2) {
-                writer.SetFanSpeed(s:255);
+            if (fanSpeed > 0) {
+                // Increase the fan speed over the first few layers
+                if (cylinderLayerCount + spiralLayerCount == 0) {
+                    writer.SetFanSpeed(s: (int)(85 * fanSpeed * 0.01));
+                } else if (cylinderLayerCount + spiralLayerCount == 1) {
+                    writer.SetFanSpeed(s: (int)(170 * fanSpeed * 0.01));
+                } else if (cylinderLayerCount + spiralLayerCount == 2) {
+                    writer.SetFanSpeed(s: (int)(255 * fanSpeed * 0.01));
+                }
             }
 
             coneZ = layerHeight * spiralLayerCount + (layerHeight / 360.0 * spiralAngle);

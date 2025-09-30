@@ -19,7 +19,8 @@ namespace ImpulseRocketry.NoseConeGenerator.Config;
 /// <summary>
 ///
 /// </summary>
-public class Parameters {
+public class Parameters
+{
 
     /// <summary>
     /// The shape of the nose code.  Valid values are: TangentOgive, Elliptical, Haack.
@@ -34,7 +35,7 @@ public class Parameters {
     /// <summary>
     /// The ratio of the diameter to the height
     /// </summary>
-    public double Ratio { get; init; }= 5.5;
+    public double Ratio { get; init; } = 5.5;
 
     /// <summary>
     /// The shape parameter for the nose cone function
@@ -54,12 +55,12 @@ public class Parameters {
     /// <summary>
     /// The layer height
     /// </summary>    
-    public Length LayerHeight{ get; init; } = Length.Mm.Value(0.2);
+    public Length LayerHeight { get; init; } = Length.Mm.Value(0.2);
 
     /// <summary>
     /// The length of each straight line segment that makes up the circumference of the nose cone.
     /// </summary>
-    public Length Resolution { get; init; }= Length.Mm.Value(0.5);
+    public Length Resolution { get; init; } = Length.Mm.Value(0.5);
 
     /// <summary>
     /// Temperature of the bed
@@ -90,4 +91,9 @@ public class Parameters {
     /// The width of the brim
     /// </summary>
     public Length Brim { get; init; } = Length.Mm.Value(0);
+
+    /// <summary>
+    /// The cooling fan percentage
+    /// </summary>
+    public int FanSpeed { get; init; } = 100;
 }
