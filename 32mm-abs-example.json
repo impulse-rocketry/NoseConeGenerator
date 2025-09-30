@@ -1,13 +1,13 @@
 {
     "shape": "Haack",
     "diameter": {
-        "value": 42,
+        "value": 32.0,
         "unit": "mm"
     },
     "ratio": 5.5,
-    "shapeParameter": 0.5,
+    "shapeParameter": 0.0,
     "baseHeight": {
-        "value": 0,
+        "value": 5,
         "unit": "mm"
     },
     "brim": {
