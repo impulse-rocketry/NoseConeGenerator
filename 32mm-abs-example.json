@@ -19,7 +19,8 @@
         "unit": "C"
     },
     "bedTemperature": {
-        "value": 100,
+        "value": 105,
         "unit": "C"
-    }
+    },
+    "fanSpeed": 0
 }
